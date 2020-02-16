@@ -6,4 +6,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install opcache \
+    && docker-php-ext-install bcmath \
+    && docker-php-ext-install gd \
     && docker-php-ext-install -j$(nproc) gd
+COPY --from=composer /usr/bin/composer /usr/bin/composer
