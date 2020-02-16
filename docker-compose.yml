@@ -1,0 +1,63 @@
+version: '3'
+services:
+  php:
+    build: './config/php/'
+    volumes:
+      - ${WEB_ROOT}:/var/www/html/
+  apache:
+    build: './config/apache/'
+    ports:
+      - "${APACHE_HOST_HTTP_PORT}:80"
+    volumes:
+      - ${WEB_ROOT}:/var/www/html
+    env_file:
+      - .env
+    container_name: ${PROJECT_NAME}-apache
+    restart: unless-stopped
+  mysql:
+    image: mysql:5.6.47
+    env_file:
+      - .env
+    volumes:
+      - ./data/dump:/docker-entrypoint-initdb.d
+      - ./config:/etc/mysql/conf.d
+      - ./data/persistent:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: ${PROJECT_NAME}-phpmyadmin
+    links:
+      - mysql
+    ports:
+      - 8000:80
+    env_file:
+      - .env
+    restart: unless-stopped
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ${PROJECT_NAME}-mailhog
+    expose:
+      - '1025'
+    ports:
+      - '8025:8025'
+    restart: unless-stopped
+#  portainer:
+#    image: portainer/portainer:latest
+#    container_name: ${PROJECT_NAME}-portainer
+#    ports:
+#      - '9000:9000'
+#    command: --no-auth -H unix:///var/run/docker.sock
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    restart: unless-stopped
+#  redis:
+#    image: redis:latest
+#    expose:
+#      - '6379'
+#    restart: unless-stopped
+#    container_name: ${PROJECT_NAME}-redis
+#  memcache:
+#    image: memcached
+#    expose:
+#      - '11211'
+#    restart: unless-stopped
+#    container_name: ${PROJECT_NAME}-memcache
