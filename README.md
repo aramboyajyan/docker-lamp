@@ -10,6 +10,7 @@ Create a new environment file and name the project:
 
 General:
 
+- composer; use `php -d memory_limit=-1 /usr/bin/composer`
 - xdebug?
 - Permissions so that apache can write to files
 - Connect mailhog by default

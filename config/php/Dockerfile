@@ -1,9 +1,11 @@
-FROM php:7.4-fpm
-RUN apt-get update && apt-get install -y \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+FROM php:7.3-fpm
+RUN apt-get update &&\
+    apt-get install -y \
+      libfreetype6-dev \
+      libjpeg62-turbo-dev \
+      libpng-dev \
+      zip \
+      unzip \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install opcache \
     && docker-php-ext-install bcmath \
