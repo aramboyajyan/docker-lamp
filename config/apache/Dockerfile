@@ -4,3 +4,5 @@ RUN apt-get update && apt-get install -y
 COPY apache.conf /usr/local/apache2/conf/apache.conf
 RUN echo "Include /usr/local/apache2/conf/apache.conf" \
     >> /usr/local/apache2/conf/httpd.conf
+# Update permissions.
+RUN chown www-data:www-data /var/www/html/
