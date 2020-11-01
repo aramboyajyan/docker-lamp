@@ -1,6 +1,6 @@
 # Ignore code. This can be overridden per-project settings, but the main idea
 # is that the Docker setup is used only for development at the moment.
-# /code/*
+/code/*
 
 # Database related files.
 /data/backups/*
