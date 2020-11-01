@@ -40,13 +40,13 @@ services:
     expose:
       - '1025'
     ports:
-      - '8025:8025'
+      - ${MAILHOG_PORT}:8025
     restart: unless-stopped
 #  portainer:
 #    image: portainer/portainer:latest
 #    container_name: ${PROJECT_NAME}-portainer
 #    ports:
-#      - '9000:9000'
+#      - ${PORTAINER_PORT}:9000
 #    command: --no-auth -H unix:///var/run/docker.sock
 #    volumes:
 #      - /var/run/docker.sock:/var/run/docker.sock
